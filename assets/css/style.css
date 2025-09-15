@@ -155,9 +155,16 @@ html {
 }
 
 body {
-  background-color: var(--raisin-black-3);
+  background-color: #1a0f2e; /* Dark purple fallback matching the image */
+  background-image: url('../images/space-bg.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   font-size: 1.6rem;
   line-height: 1.5;
+  min-height: 100vh;
+  color: var(--white); /* Ensuring text is visible against the dark background */
 }
 
 :focus-visible { outline-offset: 4px; }
