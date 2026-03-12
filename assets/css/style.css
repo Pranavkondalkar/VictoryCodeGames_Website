@@ -534,6 +534,20 @@ body {
   margin-block-end: 45px;
 }
 
+.play-btn-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .play-btn-center {
+    margin-top: 16px;
+  }
+}
+
 
 
 
