@@ -38,28 +38,44 @@ window.addEventListener("scroll", function () {
 });
 
 /**
- * Newsletter form submission
+ * Newsletter form submission via Formsubmit.co
+ * Sends an email notification to pranavkondalkar@gmail.com
  */
 const newsletterForm = document.getElementById("newsletter-form");
 if (newsletterForm) {
   newsletterForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    const email = document.getElementById("newsletter-email").value;
+    const emailInput = document.getElementById("newsletter-email");
+    const email = emailInput.value;
+    const submitBtn = newsletterForm.querySelector("button[type='submit']");
 
-    // Send email via mailto (opens user's mail client as fallback)
-    const subject = encodeURIComponent("New Newsletter Subscription - Victory Code Games");
-    const body = encodeURIComponent("New subscriber email: " + email);
-    
-    // Create a hidden iframe to send mailto without navigating away
-    const mailtoLink = document.createElement("a");
-    mailtoLink.href = "mailto:pranavkondalkar@gmail.com?subject=" + subject + "&body=" + body;
-    mailtoLink.style.display = "none";
-    document.body.appendChild(mailtoLink);
-    mailtoLink.click();
-    document.body.removeChild(mailtoLink);
+    // Disable button while submitting
+    submitBtn.textContent = "Sending...";
+    submitBtn.disabled = true;
 
-    // Show thank you message
-    newsletterForm.style.display = "none";
-    document.getElementById("newsletter-thankyou").style.display = "block";
+    // Send form data to Formsubmit.co (emails pranavkondalkar@gmail.com)
+    fetch("https://formsubmit.co/ajax/pranavkondalkar@gmail.com", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        email: email,
+        _subject: "🚀 New Newsletter Subscriber - Victory Code Games",
+        message: "New subscriber: " + email
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Show thank you message
+      newsletterForm.style.display = "none";
+      document.getElementById("newsletter-thankyou").style.display = "block";
+    })
+    .catch(error => {
+      // Still show thank you (email might have sent)
+      newsletterForm.style.display = "none";
+      document.getElementById("newsletter-thankyou").style.display = "block";
+    });
   });
 }
