@@ -62,7 +62,7 @@ if (newsletterForm) {
       },
       body: JSON.stringify({
         email: email,
-        _subject: "🚀 New Newsletter Subscriber - Victory Code Games",
+        _subject: "🚀 New Newsletter Subscriber - Victory Games",
         message: "New subscriber: " + email
       })
     })
